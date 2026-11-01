@@ -80,6 +80,15 @@ export default function InfoModal({ isOpen, onClose }) {
         }}>
           An interactive 3D studio portfolio bridging spatial design with modern web engineering. Every corner, beam, and desk dimension is modeled to exact real-world CAD specs of my room. Explore the workspace to learn about my projects, skills, and process.
         </p>
+        <p style={{ 
+          lineHeight: '1.6', 
+          color: 'rgba(255, 255, 255, 0.85)', 
+          fontSize: '15px',
+          margin: 0
+        }}>
+          Do fidget with the table light!
+          Swivle around the room :)
+          </p>
       </div>
     </div>
   )
