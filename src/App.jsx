@@ -25,8 +25,8 @@ export default function App() {
       <SpotifyModal isOpen={isSpotifyOpen} onClose={() => setIsSpotifyOpen(false)} />
 
       <Canvas
-        dpr={[1, 2]}
-        camera={{ position: [8, 6, 8], fov: 45, near: 0.01 }}
+        // 1. Pulled back into the room (X: 2.2), eye-level (Y: 1.15), centered on desk (Z: 0.13)
+        camera={{ position: [2.2, 1.15, 0.89], fov: 45 }}
         gl={{ antialias: true, alpha: false }}
       >
         <color attach="background" args={['#0a0a0c']} />
@@ -43,10 +43,12 @@ export default function App() {
         {/* Orbit Controls */}
         <OrbitControls 
           makeDefault 
-          target={[0.3, 0.75, 1.61]} 
-          minDistance={0.05}
-          maxDistance={15}
+          // 2. Focal target looking exactly at the monitor's center on the left wall
+          target={[0, 0.95, 0.89]} 
+          
           maxPolarAngle={Math.PI / 2 - 0.05} 
+          minDistance={0.5} 
+          maxDistance={5.0} 
         />
       </Canvas>
     </div>

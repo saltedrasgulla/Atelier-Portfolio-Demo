@@ -79,11 +79,17 @@ export default function Sidebar({ onOpenInfo, onOpenSpotify }) {
       {/* Main Navigation Tools */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {/* Hooked up to open the modal */}
-        <NavButton 
-          icon="ℹ️" 
-          label="Info" 
+        <NavButton
+          icon={
+            <img 
+              src="/profile.png" 
+              alt="Profile" 
+              style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} 
+            />
+          }
+         
           active={false}
-          onClick={onOpenInfo} 
+          onClick={onOpenInfo}
         />
 
         <NavButton 
@@ -93,18 +99,32 @@ export default function Sidebar({ onOpenInfo, onOpenSpotify }) {
           onClick={() => setMode(mode === 'Explore' ? 'Tour' : 'Explore')} 
         />
         
-        <NavButton 
-          icon={musicOn ? '🔊' : '🔈'} 
-          label="Music" 
+        
+        <NavButton
+          icon={
+            <img 
+              src="/music2.jpg" 
+              alt="Music" 
+              style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} 
+            />
+          }
+         
           active={musicOn}
-          onClick={onOpenSpotify} 
+          onClick={onOpenSpotify}
         />
 
-        <NavButton 
-          icon="📖" 
-          label="Guide" 
+
+        <NavButton
+          icon={
+            <img 
+              src="/guide.png" 
+              alt="Guide" 
+              style={{ width: '30px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} 
+            />
+          }
+         
           active={false}
-          onClick={() => console.log("Guide Opened")} 
+          onClick={onOpenInfo}
         />
       </div>
 
