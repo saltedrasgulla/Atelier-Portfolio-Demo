@@ -56,6 +56,13 @@
   }
 }
 
+@font-face {
+  font-family: 'Amatic SC';
+  /* The path must start with a forward slash to target the public folder */
+  src: url('/fonts/AmaticSC-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: block; 
+}
 #center {
   display: flex;
   flex-direction: column;

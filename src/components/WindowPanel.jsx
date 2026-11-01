@@ -1,129 +1,111 @@
-//import * as THREE from 'three'
-
-// DELETE THIS LINE:
-// import * as THREE from 'three'
-
 export default function WindowPanel() {
+  // Shared materials to match your CAD aesthetics
+  const frameColor = "#b8bcc2" // Light architectural grey
+  const doorColor = "#ffffff"  // Pure white door
+  
   return (
-    <group position={[0, 0, 0.015]}>
-      {/* ... rest of the file remains exactly as is ... */}
-      {/* =========================================
-          1. BALCONY DOOR (Left side)
-          Spans X: 0.09m to 0.89m
-          ========================================= */}
-      {/* Door Leaf */}
-      <mesh position={[0.49, 1.05, 0]}>
-        <planeGeometry args={[0.8, 2.1]} />
-        <meshStandardMaterial color="#dedede" roughness={0.4} />
+    <group position={[0, 0, 0]}>
+      {/* 0. Ambient Outdoor Sky (Spanning behind both window and door) */}
+      <mesh position={[1.33, 1.45, -0.05]}>
+        <planeGeometry args={[2.6, 2.8]} />
+        <meshBasicMaterial color="#e6f4ff" />
       </mesh>
 
-      {/* Door Handle */}
-      <mesh position={[0.82, 1.0, 0.02]}>
-        <boxGeometry args={[0.03, 0.12, 0.02]} />
-        <meshStandardMaterial color="#666666" metalness={0.8} roughness={0.3} />
-      </mesh>
-
-      {/* Door Transom Glass (Above door) */}
-      <mesh position={[0.49, 2.35, 0]}>
-        <planeGeometry args={[0.78, 0.4]} />
-        <meshPhysicalMaterial
-          color="#c8e4f5"
-          transparent
-          opacity={0.5}
-          roughness={0.1}
-          transmission={0.85}
-          thickness={0.02}
-        />
-      </mesh>
-
-      {/* Transom Frame border */}
-      <mesh position={[0.49, 2.35, -0.005]}>
-        <planeGeometry args={[0.82, 0.44]} />
-        <meshStandardMaterial color="#f0f0f0" roughness={0.5} />
-      </mesh>
-
-      {/* =========================================
-          2. WINDOW 1 (Middle / Clear Glass)
-          Spans X: 1.0m to 1.56m
-          ========================================= */}
-      <group position={[1.28, 1.6, 0]}>
-        {/* Frame Outline */}
-        <mesh position={[0, 0, -0.005]}>
-          <planeGeometry args={[0.56, 1.72]} />
-          <meshStandardMaterial color="#ffffff" roughness={0.3} />
+      {/* ========================================================
+          1. BALCONY DOOR UNIT 
+          Left Gap: 97mm -> Starts at X: 0.097m
+          Width: 800mm -> Center X: 0.097 + 0.40 = 0.497m
+          ======================================================== */}
+      <group position={[0, 0, 0.02]}>
+        {/* Main Outer Frame (800mm wide, 2450mm tall) */}
+        <mesh position={[0.497, 1.225, 0]}>
+          <planeGeometry args={[0.80, 2.45]} />
+          <meshStandardMaterial color={frameColor} roughness={0.7} />
         </mesh>
-        {/* Glass */}
-        <mesh position={[0, 0, 0.005]}>
-          <planeGeometry args={[0.5, 1.66]} />
+
+        {/* White Door Leaf (720mm wide, 1850mm tall) */}
+        {/* Center Y = 1.85 / 2 = 0.925m */}
+        <mesh position={[0.497, 0.925, 0.01]}>
+          <planeGeometry args={[0.72, 1.85]} />
+          <meshStandardMaterial color={doorColor} roughness={0.4} />
+        </mesh>
+
+        {/* Door Handle (Standard 1m height from floor) */}
+        <mesh position={[0.80, 1.0, 0.03]}>
+          <boxGeometry args={[0.03, 0.15, 0.02]} />
+          <meshStandardMaterial color="#555555" roughness={0.3} metalness={0.8} />
+        </mesh>
+
+        {/* Top Transom Glass (660mm wide, taking remaining space above 1850mm leaf) */}
+        {/* Center Y = 1.85 (door) + (2.45 - 1.85)/2 = 2.15m */}
+        <mesh position={[0.497, 2.15, 0.01]}>
+          <planeGeometry args={[0.66, 0.52]} />
           <meshPhysicalMaterial
-            color="#badef5"
+            color="#aed2eb"
             transparent
-            opacity={0.4}
-            roughness={0.05}
+            opacity={0.6}
+            roughness={0.1}
             transmission={0.9}
             thickness={0.02}
           />
         </mesh>
-        {/* Divider bar */}
-        <mesh position={[0, 0.55, 0.01]}>
-          <boxGeometry args={[0.5, 0.03, 0.015]} />
-          <meshStandardMaterial color="#ffffff" roughness={0.3} />
-        </mesh>
       </group>
 
-      {/* =========================================
-          3. WINDOW 2 (Right / Dark Mosquito Mesh)
-          Spans X: 1.86m to 2.42m
-          ========================================= */}
-      <group position={[2.14, 1.6, 0]}>
-        {/* Frame Outline */}
-        <mesh position={[0, 0, -0.005]}>
-          <planeGeometry args={[0.56, 1.72]} />
-          <meshStandardMaterial color="#ffffff" roughness={0.3} />
+
+      {/* ========================================================
+          2. WINDOW UNIT
+          Mid Gap: 250mm -> Starts at X: 0.097 + 0.800 + 0.250 = 1.147m
+          Width: 1350mm -> Center X: 1.147 + 0.675 = 1.822m
+          Height: 1600mm -> Top aligned to 2450mm -> Center Y = 1.65m
+          ======================================================== */}
+      <group position={[0, 0, 0.02]}>
+        {/* Main Outer Frame (1350mm x 1600mm) */}
+        <mesh position={[1.822, 1.65, 0]}>
+          <planeGeometry args={[1.35, 1.60]} />
+          <meshStandardMaterial color={frameColor} roughness={0.7} />
         </mesh>
-        {/* Dark Mesh Screen */}
-        <mesh position={[0, 0, 0.005]}>
-          <planeGeometry args={[0.5, 1.66]} />
-          <meshStandardMaterial
-            color="#2a3036"
+
+        {/* A. Top Horizontal Glass Pane (1230mm wide) */}
+        <mesh position={[1.822, 2.18, 0.01]}>
+          <planeGeometry args={[1.23, 0.42]} />
+          <meshPhysicalMaterial
+            color="#aed2eb"
             transparent
-            opacity={0.7}
-            roughness={0.9}
+            opacity={0.6}
+            roughness={0.1}
+            transmission={0.9}
+            thickness={0.02}
           />
         </mesh>
-        {/* Divider bar */}
-        <mesh position={[0, 0.55, 0.01]}>
-          <boxGeometry args={[0.5, 0.03, 0.015]} />
-          <meshStandardMaterial color="#ffffff" roughness={0.3} />
+
+        {/* B. Lower Left Glass Pane (Height: 998mm) */}
+        {/* Start X: 1.147 + 0.06 (frame) + 0.39 (half of 780mm pane) = 1.597m */}
+        <mesh position={[1.597, 1.41, 0.01]}>
+          <planeGeometry args={[0.78, 0.998]} />
+          <meshPhysicalMaterial
+            color="#aed2eb"
+            transparent
+            opacity={0.6}
+            roughness={0.1}
+            transmission={0.9}
+            thickness={0.02}
+          />
+        </mesh>
+
+        {/* C. Lower Right Glass Pane (Height: 998mm) */}
+        {/* Center X: 1.597 + 0.39 (half L-pane) + 0.06 (mullion) + 0.195 (half R-pane) = 2.242m */}
+        <mesh position={[2.242, 1.41, 0.01]}>
+          <planeGeometry args={[0.39, 0.998]} />
+          <meshPhysicalMaterial
+            color="#aed2eb"
+            transparent
+            opacity={0.6}
+            roughness={0.1}
+            transmission={0.9}
+            thickness={0.02}
+          />
         </mesh>
       </group>
-
-      {/* Window Sill Shelf under both windows */}
-      <mesh position={[1.71, 0.73, 0.03]}>
-        <boxGeometry args={[1.45, 0.04, 0.06]} />
-        <meshStandardMaterial color="#ffffff" roughness={0.3} />
-      </mesh>
-
-      {/* =========================================
-          4. CURTAIN ROD & OLIVE-GREEN DRAPES
-          ========================================= */}
-      {/* Curtain Rod spanning across the wall (length 2.6m) */}
-      <mesh position={[1.37, 2.65, 0.05]} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.012, 0.012, 2.6, 16]} />
-        <meshStandardMaterial color="#cccccc" metalness={0.8} roughness={0.2} />
-      </mesh>
-
-      {/* Left Curtain Stack (Folded next to the corner/door) */}
-      <mesh position={[0.05, 1.5, 0.06]}>
-        <boxGeometry args={[0.08, 2.3, 0.05]} />
-        <meshStandardMaterial color="#73893c" roughness={0.8} />
-      </mesh>
-
-      {/* Center Curtain Stack (Hanging between Window 1 and Window 2) */}
-      <mesh position={[1.71, 1.5, 0.06]}>
-        <boxGeometry args={[0.2, 2.3, 0.05]} />
-        <meshStandardMaterial color="#73893c" roughness={0.8} />
-      </mesh>
     </group>
   )
 }
